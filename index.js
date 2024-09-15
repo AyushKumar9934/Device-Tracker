@@ -1,6 +1,8 @@
 const express=require('express');
 const app=express();
 const socketio=require('socket.io')
+const dotenv=require('dotenv')
+dotenv.config();
 app.set('view engine','ejs')
 const path=require('path');
 const { disconnect } = require('process');
@@ -9,8 +11,9 @@ app.get('/',(req,res)=>{
     res.render('index')
 })
 
-const server=app.listen(3000,()=>
-console.log('Listening to port 3000'))
+const PORT = process.env.PORT || 3000;
+const server = app.listen(PORT,()=>
+console.log(`Listening to port ${PORT}`))
 
 const io=socketio(server);
 io.on('connection',socket=>{
